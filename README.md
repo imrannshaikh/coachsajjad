@@ -66,6 +66,10 @@ Use is under the [Unsplash licence](https://unsplash.com/license). Images are il
 
 ## Deployment
 
+Public demo: https://imrannshaikh.github.io/coachsajjad/
+
+The GitHub Pages workflow tests and builds on Node 24, then uploads only `dist/`. Pushes to `main` automatically update the demo. GitHub Pages must be configured to use GitHub Actions. The workflow sets `DEPLOY_BASE_PATH=/coachsajjad/`; navigation and images use Vite's base URL. Local development and builds default to `/`.
+
 Deploy **only `dist/`**, not the project root, to a static host after `npm run build`. The build emits both `index.html` and `achievements.html`, each with page-specific metadata. Navigation between pages uses ordinary links; section links on the career page point back to the homepage. No SPA route rewrites are needed. Serve over HTTPS and add platform-appropriate security headers. Google Fonts are loaded externally; replace with locally hosted licensed fonts if a completely self-contained deployment is required.
 
 ## Career sources and editorial decisions

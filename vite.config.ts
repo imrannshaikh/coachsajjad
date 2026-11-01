@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'node:url'
 
 export default defineConfig({
+  base: process.env.DEPLOY_BASE_PATH || '/',
   plugins: [react()],
   server: {
     fs: {

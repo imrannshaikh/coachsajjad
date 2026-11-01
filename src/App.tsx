@@ -4,12 +4,12 @@ import {
   ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown,
   Crosshair, Download, MapPin, Menu, MessageCircle, MoveUpRight, ShieldCheck, Target, X,
 } from 'lucide-react'
-import { buildEnquiry, buildSmsHref, coachPhone, coachPhoneDisplay, programmes, type Enquiry } from './coaching'
+import { buildEnquiry, buildSmsHref, coachPhone, coachPhoneDisplay, programmes, sitePath, type Enquiry } from './coaching'
 import CareerPage from './CareerPage'
 
 const navigation = [
   { title: 'The coach', href: '#about' },
-  { title: 'Achievements', href: '/achievements.html' },
+  { title: 'Achievements', href: sitePath('achievements.html') },
   { title: 'Coaching', href: '#coaching' },
   { title: 'The approach', href: '#approach' },
   { title: 'FAQs', href: '#faqs' },
@@ -35,7 +35,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; 
 }
 
 function Brand({ light = false }: { light?: boolean }) {
-  return <a className={`brand ${light ? 'brand-light' : ''}`} href="/#home" aria-label="Sajjad Ahmad home">
+  return <a className={`brand ${light ? 'brand-light' : ''}`} href={sitePath('#home')} aria-label="Sajjad Ahmad home">
     <span className="brand-mark" aria-hidden="true"><span>S</span><i /></span>
     <span className="brand-name">SAJJAD AHMAD<span>CRICKET COACHING</span></span>
   </a>
@@ -135,10 +135,10 @@ function EnquiryDialog({ interest, onClose }: { interest: string; onClose: () =>
 }
 
 export default function App() {
-  const isCareerPage = window.location.pathname === '/achievements.html'
+  const isCareerPage = window.location.pathname === sitePath('achievements.html')
   const pageNavigation = navigation.map(item => ({
     ...item,
-    href: isCareerPage && item.href.startsWith('#') ? `/${item.href}` : item.href,
+    href: isCareerPage && item.href.startsWith('#') ? sitePath(item.href) : item.href,
   }))
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeDiscipline, setActiveDiscipline] = useState(0)
@@ -191,7 +191,7 @@ export default function App() {
           <Reveal delay={0.3} className="hero-note"><span className="tiny-ball" aria-hidden="true" /><span>All levels welcome <span className="note-divider">/</span> £50 per hour</span></Reveal>
         </div>
         <Reveal className="hero-visual" delay={0.15}>
-          <img className="hero-image" src="/images/cricket-hero.jpg" alt="A red leather cricket ball resting on lush green grass" fetchPriority="high" width={1200} height={803} />
+          <img className="hero-image" src={sitePath('images/cricket-hero.jpg')} alt="A red leather cricket ball resting on lush green grass" fetchPriority="high" width={1200} height={803} />
           <div className="image-shade" />
           <div className="hero-image-top"><span className="image-label"><span /> THE GAME STARTS WITH YOU</span><span className="image-corner" aria-hidden="true"><MoveUpRight size={27} strokeWidth={1.2} /></span></div>
           <div className="hero-image-bottom"><span className="image-small-label">THE SAJJAD AHMAD APPROACH</span><p>Better habits.<br />Bigger possibilities.</p><span className="image-bottom-line" /></div>
@@ -238,7 +238,7 @@ export default function App() {
 
       <section id="about" className="about-section section-shell section-space">
         <Reveal className="about-visual">
-          <img src="/images/sajjad-archive-portrait.jpg" alt="Historical portrait of Sajjad Ahmad from his personal cricket archive" width={320} height={650} loading="lazy" />
+          <img src={sitePath('images/sajjad-archive-portrait.jpg')} alt="Historical portrait of Sajjad Ahmad from his personal cricket archive" width={320} height={650} loading="lazy" />
           <span className="about-image-caption">SAJJAD AHMAD / FROM THE PERSONAL ARCHIVE</span>
         </Reveal>
         <Reveal className="about-copy">
@@ -249,7 +249,7 @@ export default function App() {
           <div className="coach-specialisms"><span>Batting</span><span>Fast bowling</span><span>Fielding</span></div>
           <div className="about-location"><MapPin size={19} /><span>Surrey & surrounding areas<span>Session venues confirmed on enquiry</span></span></div>
           <button className="text-button about-link" onClick={() => enquire()}>Start a conversation <ArrowUpRight size={19} /></button>
-          <a href="/achievements.html" className="text-button about-career-link">Discover Sajjad’s career & achievements <ArrowUpRight size={19} /></a>
+          <a href={sitePath('achievements.html')} className="text-button about-career-link">Discover Sajjad’s career & achievements <ArrowUpRight size={19} /></a>
           <p className="bio-placeholder">Batting, bowling & fielding coaching for all levels.</p>
         </Reveal>
       </section>
@@ -279,7 +279,7 @@ export default function App() {
 
     <footer className="footer section-shell">
       <div className="footer-top"><Brand /><p>For the love of the game.<br /><span>For the player you can become.</span></p><a className="back-top" href={isCareerPage ? '#career' : '#home'}>BACK TO TOP <ArrowUpRight size={18} /></a></div>
-      <div className="footer-bottom"><span>© {new Date().getFullYear()} Sajjad Ahmad Cricket Coaching</span><nav aria-label="Footer navigation"><a href={isCareerPage ? '/#coaching' : '#coaching'}>Coaching</a><a href={isCareerPage ? '/#about' : '#about'}>The coach</a><a href="/achievements.html">Achievements</a><button onClick={() => enquire()}>Enquire <ArrowUpRight size={13} /></button></nav><span>CRAFTED WITH PURPOSE.</span></div>
+      <div className="footer-bottom"><span>© {new Date().getFullYear()} Sajjad Ahmad Cricket Coaching</span><nav aria-label="Footer navigation"><a href={isCareerPage ? sitePath('#coaching') : '#coaching'}>Coaching</a><a href={isCareerPage ? sitePath('#about') : '#about'}>The coach</a><a href={sitePath('achievements.html')}>Achievements</a><button onClick={() => enquire()}>Enquire <ArrowUpRight size={13} /></button></nav><span>CRAFTED WITH PURPOSE.</span></div>
       <div className="preview-footer"><span className="preview-dot" /> A PERSONAL APPROACH TO CRICKET <span>{isCareerPage ? 'Historical photograph from the personal archive, used with permission.' : 'Hero photography is illustrative, not a portrait of Sajjad. His historical portrait is used with permission.'} Bookings are arranged by text and confirmed directly. No personal details are stored by this site.</span></div>
     </footer>
     {enquiryInterest !== null && <EnquiryDialog interest={enquiryInterest} onClose={() => setEnquiryInterest(null)} />}

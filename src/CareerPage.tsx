@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowLeft, ArrowUpRight, Medal, ShieldCheck, Trophy } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
-import { coachPhone, coachPhoneDisplay } from './coaching'
+import { coachPhone, coachPhoneDisplay, sitePath } from './coaching'
 import './career.css'
 
 const milestones = [
@@ -24,7 +24,7 @@ export default function CareerPage({ onEnquire }: { onEnquire: () => void }) {
   return <main id="main" tabIndex={-1} className="career-page">
     <section id="career" className="career-hero section-shell">
       <div className="career-hero-copy">
-        <a href="/#home" className="career-back"><ArrowLeft size={15} /> Back to coaching</a>
+        <a href={sitePath('#home')} className="career-back"><ArrowLeft size={15} /> Back to coaching</a>
         <span className="eyebrow"><span /> THE EXPERIENCE BEHIND THE COACH</span>
         <motion.h1 initial={reducedMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reducedMotion ? 0 : 0.5 }}>A life in cricket.<br /><span>A legacy to share.</span></motion.h1>
         <p>From first-class cricket in Pakistan to standout seasons in Lancashire and Surrey. Meet the player, captain and coach behind your next session.</p>
@@ -32,7 +32,7 @@ export default function CareerPage({ onEnquire }: { onEnquire: () => void }) {
         <div className="career-profile"><span><ShieldCheck size={17} /> ECB Level 2</span><span>Right-hand bat</span><span>Right-arm fast-medium</span></div>
       </div>
       <figure className="career-portrait">
-        <img src="/images/sajjad-archive-portrait.jpg" alt="Historical portrait of Sajjad Ahmad from his personal cricket archive" width={320} height={650} fetchPriority="high" />
+        <img src={sitePath('images/sajjad-archive-portrait.jpg')} alt="Historical portrait of Sajjad Ahmad from his personal cricket archive" width={320} height={650} fetchPriority="high" />
         <figcaption><span>FROM THE PERSONAL ARCHIVE</span>Sajjad Ahmad. A life in cricket.<small>Cropped historical portrait supplied for this website. Date unconfirmed.</small></figcaption>
       </figure>
     </section>

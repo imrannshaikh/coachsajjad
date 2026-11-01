@@ -2,11 +2,12 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
+import { sitePath } from './coaching'
 
-afterEach(() => window.history.replaceState(null, '', '/'))
+afterEach(() => window.history.replaceState(null, '', sitePath('')))
 
 function renderCareer() {
-  window.history.replaceState(null, '', '/achievements.html')
+  window.history.replaceState(null, '', sitePath('achievements.html'))
   return render(<App />)
 }
 
@@ -39,15 +40,15 @@ describe('career and achievements page', () => {
     renderCareer()
     const nav = screen.getByRole('navigation', { name: 'Main navigation' })
     expect(within(nav).getByRole('link', { name: 'Achievements' })).toHaveAttribute('aria-current', 'page')
-    expect(within(nav).getByRole('link', { name: 'The coach' })).toHaveAttribute('href', '/#about')
-    expect(within(nav).getByRole('link', { name: 'Coaching' })).toHaveAttribute('href', '/#coaching')
+    expect(within(nav).getByRole('link', { name: 'The coach' })).toHaveAttribute('href', sitePath('#about'))
+    expect(within(nav).getByRole('link', { name: 'Coaching' })).toHaveAttribute('href', sitePath('#coaching'))
     expect(screen.getByRole('link', { name: 'BACK TO TOP' })).toHaveAttribute('href', '#career')
-    expect(screen.getAllByRole('link', { name: 'Sajjad Ahmad home' })[0]).toHaveAttribute('href', '/#home')
+    expect(screen.getAllByRole('link', { name: 'Sajjad Ahmad home' })[0]).toHaveAttribute('href', sitePath('#home'))
   })
 
   it('publishes only the cleared archive photograph, not private source images', () => {
     renderCareer()
-    expect(screen.getByRole('img')).toHaveAttribute('src', '/images/sajjad-archive-portrait.jpg')
+    expect(screen.getByRole('img')).toHaveAttribute('src', sitePath('images/sajjad-archive-portrait.jpg'))
     expect(screen.getByRole('img')).toHaveAttribute('alt', 'Historical portrait of Sajjad Ahmad from his personal cricket archive')
     expect(screen.getByText(/Date unconfirmed/)).toBeInTheDocument()
     expect(screen.getByText(/does not imply endorsement by anyone pictured/)).toBeInTheDocument()
@@ -65,14 +66,14 @@ describe('career and achievements page', () => {
     await user.click(screen.getByRole('button', { name: 'Close enquiry' }))
     await user.click(screen.getByRole('button', { name: 'Open navigation' }))
     const nav = screen.getByRole('navigation', { name: 'Mobile navigation' })
-    expect(within(nav).getByRole('link', { name: 'Coaching' })).toHaveAttribute('href', '/#coaching')
+    expect(within(nav).getByRole('link', { name: 'Coaching' })).toHaveAttribute('href', sitePath('#coaching'))
     expect(within(nav).getByRole('link', { name: 'Achievements' })).toHaveAttribute('aria-current', 'page')
   })
 
   it('makes the career page discoverable from the homepage', () => {
     render(<App />)
-    expect(screen.getByRole('link', { name: 'Discover Sajjad’s career & achievements' })).toHaveAttribute('href', '/achievements.html')
+    expect(screen.getByRole('link', { name: 'Discover Sajjad’s career & achievements' })).toHaveAttribute('href', sitePath('achievements.html'))
     const nav = screen.getByRole('navigation', { name: 'Main navigation' })
-    expect(within(nav).getByRole('link', { name: 'Achievements' })).toHaveAttribute('href', '/achievements.html')
+    expect(within(nav).getByRole('link', { name: 'Achievements' })).toHaveAttribute('href', sitePath('achievements.html'))
   })
 })
